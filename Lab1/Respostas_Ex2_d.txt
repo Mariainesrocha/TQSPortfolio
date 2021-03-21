@@ -1,0 +1,24 @@
+Maria Rocha NMec: 93320	TQS - Lab1
+
+
+1. Which classes/methods offer less coverage? 
+
+Classes que oferecem pouca coverage:
+
+>> ui (0%), uma vez que o código da classe DemoMain não foi testado, pois é código simples de interação com as classes criadas, util para o programar simular a interação de utilizadores externos com o seu programa.
+
+>> CuponEuromillions (40%), uma vez que, o método format() da mesma não foi testado.
+
+>> em EuromillionsDraw os métodos generateRandomDraw() e getDrawResults() também não foram testados.
+
+>> Os métodos hashCode() e equals() são gerados automaticamente e não necessitam de ser testados.
+
+>> O método generateRandomDip() foi parcialmente testado.
+
+2. Are all possible decision branches being covered?
+
+>> Não, pois nas situanções anteriormente referidas em que a coverage das instruções é menor a coverage dos branches também é menor. Neste caso, os métodos e classes não testados não representam um problema pelas razões acima apresentadas.
+
+-------
+
+Nota: Para usar JaCoco ter plugins no POM e depois executar o comando mvn test jacoco:report. Por fim, abrir o index.html que fica na pasta target
