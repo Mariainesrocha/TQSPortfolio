@@ -7,11 +7,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.contains;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class AddressResolverTest {
@@ -36,7 +39,9 @@ class AddressResolverTest {
 
     @Test
     public void whenBadCoordidates_throwBadArrayindex() throws IOException, URISyntaxException, ParseException {
-        when( httpClient.get( contains("location=400.000000%2C-300.000000"))).thenThrow( IndexOutOfBoundsException.class);
+        String jsonError = "{\"info\":{\"statuscode\":0,\"copyright\":{\"text\":\"\\u00A9 2021 MapQuest, Inc.\",\"imageUrl\":\"http://api.mqcdn.com/res/mqlogo.gif\",\"imageAltText\":\"\\u00A9 2021 MapQuest, Inc.\"},\"messages\":[]},\"options\":{\"maxResults\":1,\"thumbMaps\":true,\"ignoreLatLngInput\":false},\"results\":[{\"providedLocation\":{\"latLng\":{\"lat\":400.0,\"lng\":-300.0}},\"locations\":[]}]}";
+
+        when( httpClient.get( contains("location=400.000000%2C-300.000000"))).thenReturn(jsonError);
 
         //test
         assertThrows(IndexOutOfBoundsException.class,() -> resolver.findAddressForLocation(400.0000,-300.00000));
